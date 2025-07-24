@@ -1,0 +1,78 @@
+service: qommander
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  environment:
+    COMMANDS_TABLE: ${self:service}-commands-${self:provider.stage}
+    SLACK_WEBHOOK_URL: ${env:SLACK_WEBHOOK_URL}
+    GITHUB_TOKEN: ${env:GITHUB_TOKEN}
+    REPO_OWNER: ${env:REPO_OWNER}
+    REPO_NAME: ${env:REPO_NAME}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [CommandsTable, Arn]
+
+functions:
+  createCommand:
+    handler: handlers/createCommand.handler
+    events:
+      - http:
+          path: commands
+          method: post
+          cors: true
+
+  getCommand:
+    handler: handlers/getCommand.handler
+    events:
+      - http:
+          path: commands/{id}
+          method: get
+          cors: true
+
+  archiveCommand:
+    handler: handlers/archiveCommand.handler
+    events:
+      - http:
+          path: commands/{id}/archive
+          method: patch
+          cors: true
+
+  notifySlack:
+    handler: handlers/notifySlack.handler
+
+  changelog:
+    handler: handlers/changelog.handler
+    events:
+      - schedule: rate(7 days) # Weekly execution
+
+resources:
+  Resources:
+    CommandsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.COMMANDS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+plugins:
+  - serverless-offline
