@@ -8,7 +8,7 @@ Qommander is a fully serverless backend stack generated using [Amazon Q Develope
 
 ## 📽️ Live Demo (Slack + GitHub + Deploy Flow)
 
-<img src="demo/qommanderlive.mp4" width="600" alt="Qommander Live Demo">
+<img src="demo/qommanderlive.gif" width="600" alt="Qommander Live Demo">
 
 ## 🎥 Demo Amazon Q in Action
 
