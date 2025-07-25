@@ -1,8 +1,18 @@
 {
   "name": "qommander",
   "version": "1.0.0",
-  "description": "Serverless command management backend",
+  "description": "Amazon Q Developer Challenge: Complete serverless backend generated via AI prompts - showcasing 10x productivity gains",
   "main": "index.js",
+  "keywords": [
+    "amazon-q-developer",
+    "ai-generated",
+    "productivity-challenge",
+    "serverless",
+    "aws",
+    "lambda",
+    "dynamodb",
+    "slack"
+  ],
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",

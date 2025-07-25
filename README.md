@@ -117,7 +117,24 @@ sls deploy
 
 ---
 
-## 📣 AWS Builder Challenge Submission
+## 📣 Amazon Q Developer Challenge Submission
 
-Built for the [Amazon Q Developer Challenge](https://builder.aws.com).  
-Showcases real-world backend generation, Slack integration, and dev automation.
+**Challenge**: [Unlock Your Productivity Potential](https://builder.aws.com/content/2zZHZXurlEsbElK93n76qgqBRRJ/unlock-your-productivity-potential-join-q-developer-challenge-1)
+
+### **Productivity Impact**:
+- **Before Q**: Multi-day serverless project setup
+- **With Q**: Complete backend generated in hours
+- **Multiplier**: 10x faster development cycle
+
+### **What Amazon Q Generated**:
+- ✅ 5 Lambda functions with business logic
+- ✅ 15 comprehensive unit tests
+- ✅ GitHub Actions CI/CD pipeline
+- ✅ DynamoDB schema and serverless config
+- ✅ Complete documentation and cost analysis
+- ✅ Production-ready error handling
+
+**Repository**: https://github.com/archtestmike/qommander  
+**Live Demo**: Slack notifications + REST API working
+
+Showcases Amazon Q's ability to generate complete, production-ready infrastructure from simple prompts.
