@@ -12,13 +12,45 @@ Qommander is a fully serverless backend stack generated using [Amazon Q Develope
 
 ---
 
+
+---
+
+## 🧠 Prompt Used with Amazon Q
+
+This entire backend stack was generated using a single prompt in [Amazon Q Developer](https://aws.amazon.com/q/developer/):
+
+```text
+Create a serverless backend project using Node.js and the Serverless Framework. The app should support these features:
+
+1. Lambda functions to:
+   - Create a command entry
+   - Fetch a command by ID
+   - Archive a command
+   - Post a weekly changelog to Slack
+
+2. Include Slack notification integration via webhook (from `.env`)
+
+3. Generate a `serverless.yml` with all functions properly defined and deployed to AWS.
+
+4. Add a basic CI/CD pipeline using GitHub Actions (for testing and deployment)
+
+5. Include a Jest test file for each Lambda
+
+6. Provide a script to generate Git changelog entries for the Slack post
+
+7. Create a `pricing-breakdown.md` estimating cost of each Lambda function per month
+
+8. Create a README explaining how to install, test, and deploy the service
+```
+
+
 ## ✨ Features
 
 - 🧠 Built entirely by prompting Amazon Q
 - 🛠️ Modular Lambda handlers (`handlers/`)
 - 📬 Slack webhook integration (via `.env`)
 - 🧪 Unit tests (Jest)
-- 🔁 GitHub Actions workflow for CI/CD
+- �� GitHub Actions workflow for CI/CD
 - 📝 Weekly Git changelog poster (Slack)
 - 💸 `pricing-breakdown.md` for cost awareness
 - 📱 Mobile CLI-compatible via Codespaces
