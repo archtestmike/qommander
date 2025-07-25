@@ -44,6 +44,30 @@ Create a serverless backend project using Node.js and the Serverless Framework. 
 8. Create a README explaining how to install, test, and deploy the service
 ```
 
+---
+
+## 📱 Mobile Demos
+
+### 🧪 Running Tests on Mobile
+<video width="100%" controls>
+  <source src="demo/npmtestmobile.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+### 🚀 Deploying from Mobile
+<video width="100%" controls>
+  <source src="demo/npmdeploymobile.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+### 🔔 Slack Alerts from Mobile Commands
+<video width="100%" controls>
+  <source src="demo/slackalertmobile.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+---
+
 
 ## ✨ Features
 
