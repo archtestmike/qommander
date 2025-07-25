@@ -6,17 +6,9 @@ Qommander is a fully serverless backend stack generated using [Amazon Q Develope
 
 ---
 
-## 🎥 Inline Demo Video (Plays on Page)
+## 🎥 Demo (Inline GIF)
 
-> This video plays directly inside the GitHub README.
-
-<video width="100%" controls>
-  <source src="demo/QommanderDemo_FIXED_for_GitHub.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-
-
+![Qommander Demo](demo/qommander-demo-15s-sharp-safe.gif)
 
 ---
 
@@ -44,7 +36,7 @@ qommander/
 ├── pricing-breakdown.md  # Cost estimation
 ├── serverless.yml        # Serverless Framework config
 ├── .env.example          # Environment variable template
-├── demo/QommanderDemo.mp4 # Embedded demo video
+├── demo/qommander-demo-15s-sharp-safe.gif  # Inline GIF demo
 ├── README.md             # You're here
 ```
 
@@ -68,15 +60,6 @@ sls deploy        # Deploy via Serverless Framework
 ```env
 SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
 ```
-
----
-
-## 📱 Mobile-Ready
-
-Test and deploy from your phone using:
-- GitHub Codespaces
-- iSH Shell + curl
-- Termux or SSH
 
 ---
 
