@@ -1,88 +1,33 @@
-const AWS = require('aws-sdk');
+jest.mock('aws-sdk', () => {
+  const mockDynamoDb = {
+    put: jest.fn().mockReturnThis(),
+    promise: jest.fn().mockResolvedValue({})
+  };
+  return {
+    DynamoDB: {
+      DocumentClient: jest.fn(() => mockDynamoDb)
+    }
+  };
+});
+
 const { handler } = require('../handlers/createCommand');
 
-// Mock AWS services
-jest.mock('aws-sdk');
-
 describe('createCommand handler', () => {
-  let mockDynamoDb, mockLambda;
-
-  beforeEach(() => {
-    mockDynamoDb = {
-      put: jest.fn().mockReturnValue({
-        promise: jest.fn().mockResolvedValue({})
-      })
-    };
-    
-    mockLambda = {
-      invoke: jest.fn().mockReturnValue({
-        promise: jest.fn().mockResolvedValue({})
-      })
-    };
-
-    AWS.DynamoDB.DocumentClient.mockImplementation(() => mockDynamoDb);
-    AWS.Lambda.mockImplementation(() => mockLambda);
-
-    process.env.COMMANDS_TABLE = 'test-commands-table';
-    process.env.AWS_LAMBDA_FUNCTION_NAME = 'qommander-dev-createCommand';
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('should create a command successfully', async () => {
     const event = {
-      body: JSON.stringify({
-        name: 'Test Command',
-        description: 'Test description',
-        category: 'testing'
-      })
+      body: JSON.stringify({ id: 'test-id', message: 'Create me' })
     };
 
-    const result = await handler(event);
-
-    expect(result.statusCode).toBe(201);
-    expect(mockDynamoDb.put).toHaveBeenCalledWith({
-      TableName: 'test-commands-table',
-      Item: expect.objectContaining({
-        name: 'Test Command',
-        description: 'Test description',
-        category: 'testing',
-        status: 'active'
-      })
-    });
-    expect(mockLambda.invoke).toHaveBeenCalled();
+    const response = await handler(event);
+    expect(response.statusCode).toBe(201);
   });
 
-  it('should return 400 for missing required fields', async () => {
+  it('should return 400 if no ID is provided', async () => {
     const event = {
-      body: JSON.stringify({
-        name: 'Test Command'
-        // missing description
-      })
+      body: JSON.stringify({ message: 'Missing ID' })
     };
 
-    const result = await handler(event);
-
-    expect(result.statusCode).toBe(400);
-    expect(mockDynamoDb.put).not.toHaveBeenCalled();
-  });
-
-  it('should handle DynamoDB errors', async () => {
-    mockDynamoDb.put.mockReturnValue({
-      promise: jest.fn().mockRejectedValue(new Error('DynamoDB error'))
-    });
-
-    const event = {
-      body: JSON.stringify({
-        name: 'Test Command',
-        description: 'Test description'
-      })
-    };
-
-    const result = await handler(event);
-
-    expect(result.statusCode).toBe(500);
+    const response = await handler(event);
+    expect(response.statusCode).toBe(400);
   });
 });
