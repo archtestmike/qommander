@@ -9,12 +9,12 @@ Qommander is a fully serverless backend stack generated using [Amazon Q Develope
 ## 📽️ Live Demo (Slack + GitHub + Deploy Flow)
 
 
-![Qommander Demo](demo/qommanderlive.mp4)
+<img src="demo/qommanderlive.gif" width="600" alt="Qommander Live Demo">
 
 
 ## 🎥 Demo Amazon Q in Action
 
-![Qommander Demo](demo/qommander-demo-15s-sharp-safe.gif)
+<img src="demo/qommander-demo-15s-sharp-safe.gif" width="600" alt="Qommander Demo">
 
 ---
 
