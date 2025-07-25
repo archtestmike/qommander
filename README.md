@@ -6,16 +6,13 @@ Qommander is a fully serverless backend stack generated using [Amazon Q Develope
 
 ---
 
-## 🎥 Demo (Inline GIF)
+## 🎥 Demo Amazon Q in Action
 
 ![Qommander Demo](demo/qommander-demo-15s-sharp-safe.gif)
 
 ---
 
-
----
-
-## 🧠 Prompt Used with Amazon Q
+## 🧠 Prompt Used with Amazon Q 
 
 This entire backend stack was generated using a single prompt in [Amazon Q Developer](https://aws.amazon.com/q/developer/):
 
