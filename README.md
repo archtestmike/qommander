@@ -1,125 +1,108 @@
-# 🚀 Qommander
 
-**AI-powered DevOps automation — build, test, deploy, and notify your backend with a single Amazon Q prompt.**
+# 🧠 Qommander
 
-Qommander is a fully serverless backend stack generated using [Amazon Q Developer](https://aws.amazon.com/q/developer/). From REST API routes to Slack notifications and CI/CD workflows, everything is scaffolded, tested, and deployable — instantly.
+Qommander is an AI-powered CLI productivity tool that lets you create, archive, and track command executions using Slack notifications, built and orchestrated using **Amazon Q Developer**.
 
----
-
-## 📽️ Live Demo (Slack + GitHub + Deploy Flow)
-
-
-<img src="demo/qommanderlive.gif" width="600" alt="Qommander Live Demo">
-
-
-## 🎥 Demo Amazon Q in Action
-
-<img src="demo/qommander-demo-15s-sharp-safe.gif" width="600" alt="Qommander Demo">
+<p align="center">
+  <img src="./demo/qommander_demo.gif" alt="Qommander Demo" width="800"/>
+</p>
 
 ---
 
-## 🧠 Prompt Used with Amazon Q 
+## 🚀 Built with Amazon Q Developer
 
-This entire backend stack was generated using a single prompt in [Amazon Q Developer](https://aws.amazon.com/q/developer/):
+This project was bootstrapped **entirely** using Amazon Q Developer's CLI and agentic chat mode:
 
-```text
-Create a serverless backend project using Node.js and the Serverless Framework. The app should support these features:
-
-1. Lambda functions to:
-   - Create a command entry
-   - Fetch a command by ID
-   - Archive a command
-   - Post a weekly changelog to Slack
-
-2. Include Slack notification integration via webhook (from `.env`)
-
-3. Generate a `serverless.yml` with all functions properly defined and deployed to AWS.
-
-4. Add a basic CI/CD pipeline using GitHub Actions (for testing and deployment)
-
-5. Include a Jest test file for each Lambda
-
-6. Provide a script to generate Git changelog entries for the Slack post
-
-7. Create a `pricing-breakdown.md` estimating cost of each Lambda function per month
-
-8. Create a README explaining how to install, test, and deploy the service
+### 🤖 Prompt used to scaffold the project:
+```
+Build a serverless backend using Node.js that includes:
+- createCommand and archiveCommand Lambda functions
+- notifySlack handler
+- unit tests with Jest
+- a Serverless Framework configuration file
 ```
 
+### 🧩 Amazon Q Developer generated:
+- `handlers/createCommand.js`, `archiveCommand.js`, and `notifySlack.js`
+- Test suite under `tests/`
+- `serverless.yml` for deployment
+- CI/CD GitHub workflow
+- Boilerplate `.env`, `package.json`, and Slack integration logic
+
+⚡️ **Time saved**: Entire setup was generated and runnable in under **2 minutes**.
+
+---
 
 ## ✨ Features
 
-- 🧠 Built entirely by prompting Amazon Q
-- 🛠️ Modular Lambda handlers (`handlers/`)
-- 📬 Slack webhook integration (via `.env`)
-- 🧪 Unit tests (Jest)
-- �� GitHub Actions workflow for CI/CD
-- 📝 Weekly Git changelog poster (Slack)
-- 💸 `pricing-breakdown.md` for cost awareness
-- 📱 Mobile CLI-compatible via Codespaces
+- ✅ Create and store command records in DynamoDB
+- 📦 Archive commands
+- 📣 Slack notifications on key events
+- 🧪 Jest test coverage
+- �� Serverless deploy ready
+- 🧠 Auto-generated using Amazon Q Developer
 
 ---
 
-## 📦 Project Structure
+## 📊 Productivity Snapshot
 
-```
-qommander/
-├── handlers/             # Lambda functions
-├── tests/                # Jest test coverage
-├── scripts/              # Git changelog → Slack
-├── .github/workflows/    # CI/CD pipeline
-├── pricing-breakdown.md  # Cost estimation
-├── serverless.yml        # Serverless Framework config
-├── .env.example          # Environment variable template
-├── demo/qommander-demo-15s-sharp-safe.gif  # Inline GIF demo
-├── README.md             # You're here
-```
+| Task                      | Manual Time | With Q Developer |
+|---------------------------|-------------|------------------|
+| Project scaffolding       | ~30 mins    | ⏱ 2 mins         |
+| Slack webhook integration | ~15 mins    | ⏱ 1 min          |
+| Writing Jest tests        | ~25 mins    | ⏱ 1.5 mins       |
+| CI/CD GitHub Workflow     | ~10 mins    | ⏱ Instant        |
 
 ---
 
-## ⚙️ How to Use
+## 🧪 Usage Demo
+
+Watch Qommander in action—commands firing, notifications sent, and how it behaves live!
+
+<p align="center">
+  <img src="./demo/qommander_live.gif" alt="Qommander Live Usage Demo" width="800"/>
+</p>
+
+---
+
+## 🔧 Setup
 
 ```bash
-npm install       # Install dependencies
-npm test          # Run Jest tests
-sls deploy        # Deploy via Serverless Framework
+# Clone the repo
+git clone https://github.com/archtestmike/qommander.git
+cd qommander
+
+# Install dependencies
+npm install
+
+# Setup .env with your Slack webhook
+cp .env.example .env
+# Add: SLACK_WEBHOOK_URL=https://hooks.slack.com/services/...
+
+# Run tests
+npm test
 ```
 
 ---
 
-## 💡 Slack Webhook Setup
+## ✅ Lessons Learned Using Amazon Q Developer
 
-1. Create a [Slack Webhook](https://api.slack.com/messaging/webhooks)
-2. Paste it into `.env`:
+- Q Developer excels at **scaffolding serverless projects** with proper file structure
+- Best used with **clear and scoped prompts** like "create X handler with Slack webhook"
+- You can iterate on handlers, tests, and CI with Q directly in your IDE
+- Generated tests are a great **starting point** — review for edge case coverage
+- Set environment variables properly for smooth test + runtime
 
-```env
-SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
-```
+---
+
+## 🤝 Contributions
+
+Pull requests welcome! Built for the [Amazon Q Developer Challenge](https://builder.aws.com/content/2zZHZXurlEsbElK93n76qgqBRRJ/unlock-your-productivity-potential-join-q-developer-challenge-1).
 
 ---
 
 ## 🧠 Why Qommander?
 
-This project showcases Amazon Q's ability to:
-- Generate full backend logic
-- Automate CI/CD pipelines
-- Improve productivity and visibility for dev teams
+> Built fast with AI. Runs fast with Slack. Stays lean with Serverless.
 
----
 
-## 🏁 Ready to Try It?
-
-```bash
-git clone https://github.com/archtestmike/qommander
-cd qommander
-cp .env.example .env
-npm install
-sls deploy
-```
-
----
-
-## 📣 AWS Builder Challenge Submission
-
-Built for the [Amazon Q Developer Challenge](https://builder.aws.com).  
-Showcases real-world backend generation, Slack integration, and dev automation.
