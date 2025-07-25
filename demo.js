@@ -11,6 +11,11 @@ const { handler: archiveCommand } = require('./handlers/archiveCommand');
 // Mock environment variables for demo
 process.env.COMMANDS_TABLE = 'qommander-commands-dev';
 process.env.AWS_LAMBDA_FUNCTION_NAME = 'qommander-dev-createCommand';
+process.env.AWS_REGION = process.env.AWS_REGION || 'us-east-1';
+
+// Configure AWS SDK
+const AWS = require('aws-sdk');
+AWS.config.update({ region: process.env.AWS_REGION });
 
 async function runDemo() {
   console.log('🚀 Qommander Demo\n');
