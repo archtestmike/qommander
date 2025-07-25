@@ -49,22 +49,13 @@ Create a serverless backend project using Node.js and the Serverless Framework. 
 ## 📱 Mobile Demos
 
 ### 🧪 Running Tests on Mobile
-<video width="100%" controls>
-  <source src="demo/npmtestmobile.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<img src="demo/npmtestrun.gif" width="600" alt="Qommander Live Demo">
 
 ### 🚀 Deploying from Mobile
-<video width="100%" controls>
-  <source src="demo/npmdeploymobile.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<img src="demo/npmdeployrun.gif" width="600" alt="Qommander Live Demo">
 
 ### 🔔 Slack Alerts from Mobile Commands
-<video width="100%" controls>
-  <source src="demo/slackalertmobile.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<img src="demo/slack.gif" width="600" alt="Qommander Live Demo">
 
 ---
 
