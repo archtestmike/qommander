@@ -11,9 +11,10 @@ Qommander is a fully serverless backend stack generated using [Amazon Q Develope
 > This video plays directly inside the GitHub README.
 
 <video width="100%" controls>
-  <source src="demo/qommanderdemo.mp4" type="video/mp4">
+  <source src="demo/QommanderDemo_FIXED_for_GitHub.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+
 
 
 
