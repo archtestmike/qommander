@@ -6,6 +6,17 @@ Qommander is a fully serverless backend stack generated using [Amazon Q Develope
 
 ---
 
+## 🎥 Inline Demo Video (Plays on Page)
+
+> This video plays directly inside the GitHub README.
+
+<video width="100%" controls>
+  <source src="demo/QommanderDemo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+---
+
 ## ✨ Features
 
 - 🧠 Built entirely by prompting Amazon Q
@@ -30,6 +41,7 @@ qommander/
 ├── pricing-breakdown.md  # Cost estimation
 ├── serverless.yml        # Serverless Framework config
 ├── .env.example          # Environment variable template
+├── demo/QommanderDemo.mp4 # Embedded demo video
 ├── README.md             # You're here
 ```
 
@@ -37,102 +49,56 @@ qommander/
 
 ## ⚙️ How to Use
 
-### 🧪 1. Install Dependencies
 ```bash
-npm install
-```
-
-### ✅ 2. Run Tests
-```bash
-npm test
-```
-
-### 🚀 3. Deploy Serverlessly
-```bash
-sls deploy
-```
-
----
-
-## 💬 Amazon Q Prompt Used
-
-```plaintext
-Create a complete, serverless backend project called `qommander` using Node.js and the Serverless Framework. Include:
-- REST API for managing “commands” (POST, GET, PATCH/archive)
-- One Lambda function per route
-- Slack webhook notifier for events
-- Weekly changelog Lambda that posts Git logs to Slack
-- Jest tests for all handlers
-- GitHub Actions workflow
-- pricing-breakdown.md file
+npm install       # Install dependencies
+npm test          # Run Jest tests
+sls deploy        # Deploy via Serverless Framework
 ```
 
 ---
 
 ## 💡 Slack Webhook Setup
 
-> Create a new [Slack Incoming Webhook](https://api.slack.com/messaging/webhooks), then add your URL to `.env`:
+1. Create a [Slack Webhook](https://api.slack.com/messaging/webhooks)
+2. Paste it into `.env`:
 
 ```env
-SLACK_WEBHOOK_URL=https://hooks.slack.com/services/...
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
 ```
-
----
-
-## 💵 Cost Breakdown
-
-See `pricing-breakdown.md` for AWS usage estimates.
-
-| Usage Level | Estimated Monthly Cost |
-|-------------|------------------------|
-| Solo Dev    | ~$25–35                |
-| Small Team  | ~$125–160              |
 
 ---
 
 ## 📱 Mobile-Ready
 
-Deploy, test, and trigger endpoints from your phone using:
+Test and deploy from your phone using:
 - GitHub Codespaces
-- iSH Shell or Termux + curl
-- Slack notification demos in real time
+- iSH Shell + curl
+- Termux or SSH
 
 ---
 
 ## 🧠 Why Qommander?
 
-Unlike static templates, Qommander demonstrates the power of Amazon Q Developer to:
-- Understand backend intent
-- Generate real-world code
-- Automate delivery pipelines
-- Keep teams in sync — instantly
+This project showcases Amazon Q's ability to:
+- Generate full backend logic
+- Automate CI/CD pipelines
+- Improve productivity and visibility for dev teams
 
 ---
 
-## 🙌 Built With
-
-- Amazon Q Developer (VS Code + CLI)
-- AWS Lambda, API Gateway
-- Serverless Framework
-- Slack Webhooks
-- Jest + GitHub Actions
-
----
-
-## 🏁 Ready to Use
+## 🏁 Ready to Try It?
 
 ```bash
 git clone https://github.com/archtestmike/qommander
 cd qommander
-cp .env.example .env     # Then add your Slack webhook
+cp .env.example .env
 npm install
-npm test
 sls deploy
 ```
 
 ---
 
-## 📣 Submit or Showcase
+## 📣 AWS Builder Challenge Submission
 
-This project is part of the [AWS Q Developer Challenge](https://builder.aws.com).  
-Feel free to fork, remix, or deploy for your own automation needs.
+Built for the [Amazon Q Developer Challenge](https://builder.aws.com).  
+Showcases real-world backend generation, Slack integration, and dev automation.
