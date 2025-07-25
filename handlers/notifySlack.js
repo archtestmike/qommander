@@ -1,49 +1,68 @@
-// handlers/notifySlack.js
-
-require('dotenv').config(); // This loads .env values
 const https = require('https');
-const { URL } = require('url');
 
-module.exports.handler = async (event) => {
-  const webhookUrl = process.env.SLACK_WEBHOOK_URL;
+/**
+ * Sends Slack notifications when commands are created or archived
+ */
+exports.handler = async (event) => {
+  try {
+    const { action, command } = event;
 
-  if (!webhookUrl) {
-    throw new Error("SLACK_WEBHOOK_URL is not defined. Please check your .env file.");
+    if (!process.env.SLACK_WEBHOOK_URL) {
+      console.log('SLACK_WEBHOOK_URL not configured, skipping notification');
+      return { statusCode: 200 };
+    }
+
+    // Create message based on action
+    const message = action === 'created' 
+      ? `🆕 New command created: *${command.name}*\n📝 ${command.description}\n🏷️ Category: ${command.category}`
+      : `📦 Command archived: *${command.name}*\n📝 ${command.description}`;
+
+    const payload = {
+      text: message,
+      username: 'Qommander Bot',
+      icon_emoji: ':robot_face:'
+    };
+
+    // Send to Slack webhook
+    await sendSlackMessage(process.env.SLACK_WEBHOOK_URL, payload);
+
+    return { statusCode: 200 };
+  } catch (error) {
+    console.error('Error sending Slack notification:', error);
+    return { statusCode: 500 };
   }
+};
 
-  const payload = JSON.stringify({
-    text: `📣 New Command Event: \n${event.body || 'No payload provided.'}`
-  });
-
-  const url = new URL(webhookUrl);
-
-  const options = {
-    hostname: url.hostname,
-    path: url.pathname + url.search,
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Content-Length': Buffer.byteLength(payload),
-    },
-  };
-
+/**
+ * Helper function to send HTTP POST request to Slack webhook
+ */
+function sendSlackMessage(webhookUrl, payload) {
   return new Promise((resolve, reject) => {
+    const url = new URL(webhookUrl);
+    const postData = JSON.stringify(payload);
+
+    const options = {
+      hostname: url.hostname,
+      port: 443,
+      path: url.pathname,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(postData)
+      }
+    };
+
     const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', (chunk) => data += chunk);
-      res.on('end', () => {
-        console.log("Slack webhook sent successfully.");
-        resolve({ statusCode: 200, body: 'Slack notification sent.' });
-      });
+      if (res.statusCode === 200) {
+        resolve();
+      } else {
+        reject(new Error(`Slack API returned status ${res.statusCode}`));
+      }
     });
 
-    req.on('error', (err) => {
-      console.error("Slack webhook error:", err);
-      reject({ statusCode: 500, body: err.message });
-    });
-
-    req.write(payload);
+    req.on('error', reject);
+    req.write(postData);
     req.end();
   });
-};
+}
 

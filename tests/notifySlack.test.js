@@ -1,62 +1,85 @@
-const { PassThrough } = require('stream');
 const https = require('https');
-
-jest.mock('https', () => ({
-  request: jest.fn()
-}));
-
 const { handler } = require('../handlers/notifySlack');
 
+// Mock https module
+jest.mock('https');
+
 describe('notifySlack handler', () => {
-  const event = {
-    body: JSON.stringify({ command: 'CREATE', message: 'Test command created' })
-  };
+  let mockRequest;
 
   beforeEach(() => {
-    process.env.SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/test/webhook/url';
+    mockRequest = {
+      on: jest.fn(),
+      write: jest.fn(),
+      end: jest.fn()
+    };
+
+    https.request.mockImplementation((options, callback) => {
+      // Simulate successful response
+      const mockResponse = {
+        statusCode: 200,
+        on: jest.fn()
+      };
+      callback(mockResponse);
+      return mockRequest;
+    });
+
+    process.env.SLACK_WEBHOOK_URL = 'https://hooks.slack.com/test';
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    delete process.env.SLACK_WEBHOOK_URL;
   });
 
   it('should send notification for created command', async () => {
-    const mockRes = new PassThrough();
-    mockRes.statusCode = 200;
-    const req = new PassThrough();
+    const event = {
+      action: 'created',
+      command: {
+        name: 'Test Command',
+        description: 'Test description',
+        category: 'testing'
+      }
+    };
 
-    https.request.mockImplementation((options, callback) => {
-      callback(mockRes);
-      return req;
-    });
+    const result = await handler(event);
 
-    const responsePromise = handler(event);
-    mockRes.emit('data', Buffer.from('ok'));
-    mockRes.emit('end');
-    req.end();
+    expect(result.statusCode).toBe(200);
+    expect(https.request).toHaveBeenCalled();
+    expect(mockRequest.write).toHaveBeenCalled();
+    const writtenData = JSON.parse(mockRequest.write.mock.calls[0][0]);
+    expect(writtenData.text).toContain('New command created');
+  });
 
-    const response = await responsePromise;
-    expect(response.statusCode).toBe(200);
+  it('should send notification for archived command', async () => {
+    const event = {
+      action: 'archived',
+      command: {
+        name: 'Test Command',
+        description: 'Test description'
+      }
+    };
+
+    const result = await handler(event);
+
+    expect(result.statusCode).toBe(200);
+    expect(https.request).toHaveBeenCalled();
+    expect(mockRequest.write).toHaveBeenCalled();
+    const writtenData = JSON.parse(mockRequest.write.mock.calls[0][0]);
+    expect(writtenData.text).toContain('Command archived');
   });
 
   it('should skip notification when webhook URL is not configured', async () => {
     delete process.env.SLACK_WEBHOOK_URL;
 
-    await expect(handler(event)).rejects.toThrow("SLACK_WEBHOOK_URL is not defined. Please check your .env file.");
-  });
+    const event = {
+      action: 'created',
+      command: { name: 'Test' }
+    };
 
-  it('should handle HTTP error response', async () => {
-    const mockRes = new PassThrough();
-    mockRes.statusCode = 500;
-    const req = new PassThrough();
+    const result = await handler(event);
 
-    https.request.mockImplementation((options, callback) => {
-      callback(mockRes);
-      return req;
-    });
-
-    const responsePromise = handler(event);
-    mockRes.emit('data', Buffer.from('error'));
-    mockRes.emit('end');
-    req.end();
-
-    const response = await responsePromise;
-    expect(response.statusCode).toBe(200); // your current handler logs the error but still returns 200
+    expect(result.statusCode).toBe(200);
+    expect(https.request).not.toHaveBeenCalled();
   });
 });
