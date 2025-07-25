@@ -9,10 +9,10 @@ provider:
   stage: ${opt:stage, 'dev'}
   environment:
     COMMANDS_TABLE: ${self:service}-commands-${self:provider.stage}
-    SLACK_WEBHOOK_URL: ${env:SLACK_WEBHOOK_URL}
-    GITHUB_TOKEN: ${env:GITHUB_TOKEN}
-    REPO_OWNER: ${env:REPO_OWNER}
-    REPO_NAME: ${env:REPO_NAME}
+    SLACK_WEBHOOK_URL: ${env:SLACK_WEBHOOK_URL, 'https://hooks.slack.com/demo'}
+    GITHUB_TOKEN: ${env:GITHUB_TOKEN, 'demo_token'}
+    REPO_OWNER: ${env:REPO_OWNER, 'demo_owner'}
+    REPO_NAME: ${env:REPO_NAME, 'qommander'}
   iam:
     role:
       statements:
@@ -26,6 +26,10 @@ provider:
             - dynamodb:DeleteItem
           Resource:
             - Fn::GetAtt: [CommandsTable, Arn]
+        - Effect: Allow
+          Action:
+            - lambda:InvokeFunction
+          Resource: "arn:aws:lambda:${self:provider.region}:*:function:${self:service}-${self:provider.stage}-*"
 
 functions:
   createCommand:

@@ -1,13 +1,12 @@
 const AWS = require('aws-sdk');
 
-const dynamodb = new AWS.DynamoDB.DocumentClient();
-const lambda = new AWS.Lambda();
-
 /**
  * Archives a command by updating its status and triggers Slack notification
  */
 exports.handler = async (event) => {
   try {
+    const dynamodb = new AWS.DynamoDB.DocumentClient();
+    const lambda = new AWS.Lambda();
     const { id } = event.pathParameters;
 
     if (!id) {

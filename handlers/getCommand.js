@@ -1,12 +1,11 @@
 const AWS = require('aws-sdk');
 
-const dynamodb = new AWS.DynamoDB.DocumentClient();
-
 /**
  * Retrieves a command by ID from DynamoDB
  */
 exports.handler = async (event) => {
   try {
+    const dynamodb = new AWS.DynamoDB.DocumentClient();
     const { id } = event.pathParameters;
 
     if (!id) {

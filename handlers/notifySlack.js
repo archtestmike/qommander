@@ -7,8 +7,8 @@ exports.handler = async (event) => {
   try {
     const { action, command } = event;
 
-    if (!process.env.SLACK_WEBHOOK_URL) {
-      console.log('SLACK_WEBHOOK_URL not configured, skipping notification');
+    if (!process.env.SLACK_WEBHOOK_URL || process.env.SLACK_WEBHOOK_URL.includes('demo')) {
+      console.log('SLACK_WEBHOOK_URL not configured or demo URL, skipping notification');
       return { statusCode: 200 };
     }
 
