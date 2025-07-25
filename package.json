@@ -24,6 +24,7 @@
     "testEnvironment": "node",
     "collectCoverageFrom": [
       "handlers/**/*.js"
-    ]
+    ],
+    "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"]
   }
 }
