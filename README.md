@@ -47,14 +47,13 @@ Create a serverless backend project using Node.js and the Serverless Framework. 
 ---
 
 ### 📱 Mobile Demo – Deploy on the Go
-![Run Deploy](demo/rundeploy_sharp.gif)
+<img src="demo/npmdeployrun.gif" width="300" alt="Mobile Deploy">
 
 ### 🧪 Mobile Demo – Run Tests
-![Run Tests](demo/npmtest_sharp.gif)
+<img src="demo/npmtestrun.gif" width="300" alt="Mobile Run Tests">
 
 ### 💬 Mobile Demo – Slack Alert in Action
-![Slack Alert](demo/slack_sharp.gif)
-
+<img src="demo/slack.gif" width="300" alt="Mobile Slack Alert">
 
 
 ---
